@@ -1,0 +1,33 @@
+version: '2.2'
+services:
+  test-container:
+    container_name: test-container
+    build:
+      context: .
+    environment:
+      - PORT=1234
+    ports:
+      - '3000:1234'
+    volumes:
+      - F:/testlogs:/app/logs
+
+  db:
+    container_name: postgres
+    image: postgres:alpine
+    environment:
+      POSTGRES_user: postgres
+      POSTGRES_PASSWORD: pass
+      POSTGRES_DB: univer
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+
+  pgadmin:
+    container_name: pgadmin
+    image: dpage/pgadmin4
+    environment:
+        PGADMIN_DEFAULT_EMAIL: admin@example.com
+        PGADMIN_DEFAULT_PASSWORD: password
+    ports:
+      - 5050:80
